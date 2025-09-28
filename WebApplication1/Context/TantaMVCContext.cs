@@ -6,6 +6,7 @@ namespace WebApplication1.Context
     public class TantaMVCContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source =.;Initial Catalog=TantaMVC;Integrated Security=True;Trust Server Certificate=True;");
