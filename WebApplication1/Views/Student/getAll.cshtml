@@ -1,0 +1,23 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">SSN</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Address</th>
+            <th scope="col">Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var std in Model)
+        {
+            <tr>
+                <th scope="row">@std.SSN</th>
+                <td>@std.Name</td>
+                <td>@std.Age</td>
+                <td>@std.Address</td>
+                <td>@std.Image</td>
+            </tr>
+        }      
+    </tbody>
+</table>

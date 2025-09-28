@@ -1,0 +1,17 @@
+﻿<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var std in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Image/@std.Image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Student : @std.Name , SSN : @std.SSN</h5>
+                    <p class="card-text">Age : @std.Age , Address : @std.Address</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    } 
+</div>
