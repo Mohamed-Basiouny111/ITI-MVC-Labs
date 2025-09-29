@@ -1,10 +1,16 @@
-﻿<table class="table">
+﻿@model List<Student>
+
+<a href="/Student/Add" class="btn btn-primary">New Student</a>
+<br />
+<br />
+<table class="table">
     <thead>
         <tr>
             <th scope="col">SSN</th>
             <th scope="col">Name</th>
             <th scope="col">Age</th>
             <th scope="col">Address</th>
+            <th scope="col">DepId</th>
             <th scope="col">Image</th>
         </tr>
     </thead>
@@ -17,6 +23,7 @@
                 <td>@std.Name</td>
                 <td>@std.Age</td>
                 <td>@std.Address</td>
+                <td>@std.DeptId</td>
                 <td>@std.Image</td>
             </tr>
 

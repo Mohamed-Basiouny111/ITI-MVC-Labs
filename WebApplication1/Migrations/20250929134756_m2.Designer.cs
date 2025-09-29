@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Context;
 
@@ -10,9 +11,11 @@ using WebApplication1.Context;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(TantaMVCContext))]
-    partial class TantaMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20250929134756_m2")]
+    partial class m2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,66 +23,6 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApplication1.Models.Course", b =>
-                {
-                    b.Property<int>("Num")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Num"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Topic")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Num");
-
-                    b.ToTable("Course");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.CourseInstructor", b =>
-                {
-                    b.Property<int>("InsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CrsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Grade")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("InsId", "CrsId");
-
-                    b.HasIndex("CrsId");
-
-                    b.ToTable("CourseInstructor");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.CourseStudent", b =>
-                {
-                    b.Property<int>("StdId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CrsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Grade")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("StdId", "CrsId");
-
-                    b.HasIndex("CrsId");
-
-                    b.ToTable("CourseStudent");
-                });
 
             modelBuilder.Entity("WebApplication1.Models.Department", b =>
                 {
@@ -173,44 +116,6 @@ namespace WebApplication1.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.CourseInstructor", b =>
-                {
-                    b.HasOne("WebApplication1.Models.Course", "Course")
-                        .WithMany("CourseInstructors")
-                        .HasForeignKey("CrsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.Instructor", "Instructor")
-                        .WithMany("CourseInstructors")
-                        .HasForeignKey("InsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Instructor");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.CourseStudent", b =>
-                {
-                    b.HasOne("WebApplication1.Models.Course", "Course")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("CrsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.Student", "Student")
-                        .WithMany("CourseStudents")
-                        .HasForeignKey("StdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("WebApplication1.Models.Instructor", b =>
                 {
                     b.HasOne("WebApplication1.Models.Department", "Department")
@@ -229,28 +134,11 @@ namespace WebApplication1.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.Course", b =>
-                {
-                    b.Navigation("CourseInstructors");
-
-                    b.Navigation("CourseStudents");
-                });
-
             modelBuilder.Entity("WebApplication1.Models.Department", b =>
                 {
                     b.Navigation("Instructors");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.Instructor", b =>
-                {
-                    b.Navigation("CourseInstructors");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.Student", b =>
-                {
-                    b.Navigation("CourseStudents");
                 });
 #pragma warning restore 612, 618
         }

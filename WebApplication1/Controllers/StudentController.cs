@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Context;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -22,6 +23,23 @@ namespace WebApplication1.Controllers
         {
             var result = db.Students.Where(s => s.SSN == ssn).ToList();
             return View("getAll", result);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        public IActionResult AddNew(Student s)
+        {
+            if (s.Name != null)
+            {
+                db.Students.Add(s);
+                db.SaveChanges();
+              
+                return RedirectToAction(nameof(getAll));
+            }
+            return View("Add", s);
         }
     }
 }

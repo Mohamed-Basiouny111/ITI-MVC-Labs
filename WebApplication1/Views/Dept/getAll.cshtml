@@ -1,0 +1,33 @@
+﻿@model WebApplication1.ViewModels.DeptWithStudWithInstVM
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var dep in Model.department)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Department : @dep.Name , Id : @dep.Id</h5>
+                    <p class="card-text">Manger : @dep.Manger</p>
+                    <p class="card-text">StdCount : @dep.Students.Count()</p>
+                    <p class="card-text">InsCount : @dep.Instructors.Count()</p>
+
+                    <p class="card-text">Studnets </p>
+            
+                @foreach (var e in dep.Students)
+                {
+                    <p class="card-text">@e.Name</p>
+                }
+                    <p class="card-text">Instructors : </p>
+
+                @foreach (var e in dep.Instructors)
+                {
+                    <p class="card-text">@e.Name</p>
+                }
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
