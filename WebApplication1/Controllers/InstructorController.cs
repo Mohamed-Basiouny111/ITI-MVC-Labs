@@ -5,42 +5,29 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class StudentController : Controller
+    public class InstructorController : Controller
     {
         TantaMVCContext db = new TantaMVCContext();
-        public IActionResult Index()
-        {
-            var result = db.Students.Include(d => d.Department).Include(c => c.CourseStudents).ThenInclude(cs => cs.Course).ToList();
 
-            return View("Index", result);
-        }
-
-        public IActionResult getone(int ssn)
-        {
-            var result = db.Students.Where(s => s.SSN == ssn).ToList();
-            return View("getAll", result);
-        }
-       
         public IActionResult getAll()
         {
-            var result = db.Students.Include(d=>d.Department).ToList();
+            var result = db.Instructors.Include(x=>x.Department).ToList();
             return View("getAll", result);
         }
 
         public IActionResult Add()
         {
             ViewBag.dept = db.Departments.ToList();
-
             return View();
         }
 
-        public IActionResult AddNew(Student s)
+        public IActionResult AddNew(Instructor s)
         {
             if (s.Name != null)
             {
-                db.Students.Add(s);
+                db.Instructors.Add(s);
                 db.SaveChanges();
-              
+
                 return RedirectToAction(nameof(getAll));
             }
             return View("Add", s);
@@ -49,31 +36,31 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var result = db.Students.FirstOrDefault(s => s.SSN == id);
+            var result = db.Instructors.FirstOrDefault(s => s.SSN == id);
             ViewBag.dept = db.Departments.ToList();
             return View(result);
         }
 
         [HttpPost]
-        public IActionResult Edit(Student student)
+        public IActionResult Edit(Instructor instructor)
         {
-            if (student.Name != "")
+            if (instructor.Name != "")
             {
-                db.Students.Update(student);
+                db.Instructors.Update(instructor);
                 db.SaveChanges();
                 return RedirectToAction(nameof(getAll));
             }
 
             ViewBag.dept = db.Departments.ToList();
-            return View(student);
+            return View(instructor);
         }
-       
+
         public IActionResult Delete(int id)
         {
-            var student = db.Students.FirstOrDefault(s => s.SSN == id);
-            if (student == null)
+            var instructor = db.Instructors.FirstOrDefault(s => s.SSN == id);
+            if (instructor == null)
                 return NotFound();
-            db.Students.Remove(student);
+            db.Instructors.Remove(instructor);
             db.SaveChanges();
             return RedirectToAction(nameof(getAll));
         }

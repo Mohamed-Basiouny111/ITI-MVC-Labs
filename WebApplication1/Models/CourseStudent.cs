@@ -9,7 +9,7 @@ namespace WebApplication1.Models
         public int StdId { get; set; }
         public int CrsId { get; set; }
         [MaxLength(100)]
-        public string? Grade { get; set; }
+        public int? Grade { get; set; }
 
         public virtual Student Student { get; set; }
         public virtual Course Course { get; set; }

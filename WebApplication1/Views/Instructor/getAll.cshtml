@@ -1,6 +1,6 @@
-﻿@model List<Student>
+﻿@model List<Instructor>
 <br />
-<a href="/Student/Add" class="btn btn-primary">New Student</a>
+<a href="/Instructor/Add" class="btn btn-primary">New Instructor</a>
 <br />
 <br />
 <table class="table">
@@ -10,13 +10,14 @@
             <th scope="col">Name</th>
             <th scope="col">Age</th>
             <th scope="col">Address</th>
+            <th scope="col">Salary</th>
             <th scope="col">Department</th>
             <th scope="col">Edit</th>
             <th scope="col">delete</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var std in Model)
+        @foreach (Instructor std in Model)
         {
 
             <tr>
@@ -24,11 +25,12 @@
                 <td>@std.Name</td>
                 <td>@std.Age</td>
                 <td>@std.Address</td>
-                <td>@std.Department.Name</td>
-                <td><a asp-action="Edit" asp-controller="Student" asp-route-id="@std.SSN">Edit</a></td>
-                <td><a style="color:red;" asp-action="Delete" asp-controller="Student" asp-route-id="@std.SSN">Delete</a></td>
+                <td>@std.Salary</td>
+                <td>@std.Department?.Name</td>
+                <td><a asp-action="Edit" asp-controller="Instructor" asp-route-id="@std.SSN">Edit</a></td>
+                <td><a style="color:red;" asp-action="Delete" asp-controller="Instructor" asp-route-id="@std.SSN">Delete</a></td>
             </tr>
 
-        }      
+        }
     </tbody>
 </table>

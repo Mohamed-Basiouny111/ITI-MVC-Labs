@@ -5,11 +5,28 @@
     {
         <div class="col">
             <div class="card h-100">
-                <img src="~/Image/@std.Image" class="card-img-top" alt="...">
+                <img src="~/Image/1.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Student : @std.Name , SSN : @std.SSN</h5>
+                    <h5 class="card-title">Student : @std.Name , department : @std.Department.Name</h5>
                     <p class="card-text">Age : @std.Age , Address : @std.Address</p>
                 </div>
+
+                <div class="card-body">
+                    @foreach(var c in std.CourseStudents)
+                    {
+                        if (c.Grade < c.Course.MinDegree)
+                        {
+                            <h5 class="card-title" style="color:red;">Student : @c.Course.Name , Grade : @c.Grade</h5>
+
+                        }
+                        else
+                        {
+                            <h5 class="card-title" style="color:green;">Student : @c.Course.Name , Grade : @c.Grade</h5>
+
+                        }
+                    }
+                </div>
+
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
                 </div>

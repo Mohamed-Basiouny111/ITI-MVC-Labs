@@ -29,14 +29,21 @@ namespace WebApplication1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Num"));
 
+                    b.Property<int>("Degree")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinDegree")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Topic")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Num");
 
@@ -50,10 +57,6 @@ namespace WebApplication1.Migrations
 
                     b.Property<int>("CrsId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Grade")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("InsId", "CrsId");
 
@@ -70,9 +73,9 @@ namespace WebApplication1.Migrations
                     b.Property<int>("CrsId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Grade")
+                    b.Property<int?>("Grade")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("int");
 
                     b.HasKey("StdId", "CrsId");
 

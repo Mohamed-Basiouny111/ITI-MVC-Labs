@@ -1,0 +1,14 @@
+﻿@model Course
+
+
+<form asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Num" method="post">
+    <input type="hidden" asp-for="Num" />
+
+    <partial name="_CourseDataFormPV" />
+
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}

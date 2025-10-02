@@ -1,0 +1,12 @@
+﻿@model Course
+<div asp-validation-summary="None"></div>
+<form asp-action="Add" asp-controller="Course" method="post">
+  
+
+    <partial name="_CourseDataFormPV" model="Model" />
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+}

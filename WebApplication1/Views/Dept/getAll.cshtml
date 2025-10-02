@@ -1,33 +1,33 @@
-﻿@model WebApplication1.ViewModels.DeptWithStudWithInstVM
+﻿@model List<Department>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var dep in Model.department)
-    {
-        <div class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Department : @dep.Name , Id : @dep.Id</h5>
-                    <p class="card-text">Manger : @dep.Manger</p>
-                    <p class="card-text">StdCount : @dep.Students.Count()</p>
-                    <p class="card-text">InsCount : @dep.Instructors.Count()</p>
+<br />
+<a href="/Dept/Add" class="btn btn-primary">New Department</a>
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Manger</th>
+         
+            <th scope="col">Edit</th>
+            <th scope="col">delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dep in Model)
+        {
 
-                    <p class="card-text">Studnets </p>
-            
-                @foreach (var e in dep.Students)
-                {
-                    <p class="card-text">@e.Name</p>
-                }
-                    <p class="card-text">Instructors : </p>
+            <tr>
+                <th scope="row">@dep.Id</th>
+                <td>@dep.Name</td>
+                <td>@dep.Manger</td>
+             
+                <td><a asp-action="Edit" asp-controller="Dept" asp-route-id="@dep.Id">Edit</a></td>
+                <td><a style="color:red;" asp-action="Delete" asp-controller="Dept" asp-route-id="@dep.Id">Delete</a></td>
+            </tr>
 
-                @foreach (var e in dep.Instructors)
-                {
-                    <p class="card-text">@e.Name</p>
-                }
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+        }      
+    </tbody>
+</table>
