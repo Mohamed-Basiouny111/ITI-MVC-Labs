@@ -39,15 +39,15 @@ namespace WebApplication1.Controllers
 
         public IActionResult AddNew(Student s)
         {
-            try
-            {
-                int z = 0;
-                int x = 5 / z;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error happened while loading Index");
-            }
+            //try
+            //{
+            //    int z = 0;
+            //    int x = 5 / z;
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex, "Error happened while loading Index");
+            //}
 
             if (s.Name != null)
             {
