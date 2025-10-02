@@ -1,3 +1,5 @@
+using WebApplication1.Middlewares;
+
 namespace WebApplication1
 {
     public class Program
@@ -9,7 +11,23 @@ namespace WebApplication1
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Session
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); 
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            // builder.Services.AddMemoryCache();
+            builder.Services.AddResponseCaching();
+
+
             var app = builder.Build();
+            app.UseResponseCaching();
+
+            app.UseSession();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -19,6 +37,8 @@ namespace WebApplication1
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseLoggingMiddlewareCustom();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
