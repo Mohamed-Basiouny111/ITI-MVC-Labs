@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Context;
+using WebApplication1.Filters;
 using WebApplication1.Middlewares;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+   
     public class StudentController : Controller
     {
         private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
 
         TantaMVCContext db = new TantaMVCContext();
+
+        [CheckUserFilter]
         public IActionResult Index()
         {
             var result = db.Students.Include(d => d.Department).Include(c => c.CourseStudents).ThenInclude(cs => cs.Course).ToList();

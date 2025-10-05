@@ -14,6 +14,8 @@ namespace WebApplication1.Models
         [MaxLength(100)]
         public string? Manger { get; set; }
 
+        [MaxLength(100)]
+        public string Location { get; set; }
         public virtual List<Student> Students { get; set; } = new List<Student>();
 
         public virtual List<Instructor> Instructors { get; set; } = new List<Instructor>();

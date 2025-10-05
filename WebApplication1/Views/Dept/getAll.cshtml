@@ -4,13 +4,16 @@
 <a href="/Dept/Add" class="btn btn-primary">New Department</a>
 <br />
 <br />
+<a href="/Dept/AddV2" class="btn btn-primary">New DepartmentV2</a>
+<br />
+<br />
 <table class="table">
     <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
+            <th scope="col">Name</th>      
             <th scope="col">Manger</th>
-
+            <th scope="col">Location</th>
             <th scope="col">Edit</th>
             <th scope="col">delete</th>
         </tr>
@@ -23,6 +26,7 @@
                 <th scope="row">@dep.Id</th>
                 <td>@dep.Name</td>
                 <td>@dep.Manger</td>
+                <td>@dep.Location</td>
 
                 <td><a asp-action="Edit" asp-controller="Dept" asp-route-id="@dep.Id">Edit</a></td>
                 @*                 <td><a style="color:red;" asp-action="Delete" onclick="return confirmDelete();" asp-controller="Dept" asp-route-id="@dep.Id" onclick="">Delete</a></td>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Context;
+using WebApplication1.Filters;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
 
@@ -40,6 +41,26 @@ namespace WebApplication1.Controllers
                 return RedirectToAction(nameof(getAll));
             }
             return View("Add", s);
+        }
+
+        public IActionResult AddV2()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [CheckLocationFilter]
+        [AddFooterFilter]
+        public IActionResult AddNewV2(Department department)
+        {
+            if (department.Name != null)
+            {
+                db.Departments.Add(department);
+                db.SaveChanges();
+
+                return RedirectToAction(nameof(getAll));
+            }
+            return View("Add", department);
         }
 
         [HttpGet]

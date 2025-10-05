@@ -1,3 +1,4 @@
+using WebApplication1.Filters;
 using WebApplication1.Middlewares;
 
 namespace WebApplication1
@@ -21,6 +22,12 @@ namespace WebApplication1
 
             // builder.Services.AddMemoryCache();
             builder.Services.AddResponseCaching();
+
+            //HandelExceptionFiterAttribute global
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<HandelExceptionFiterAttribute>();
+            });
 
 
             var app = builder.Build();
