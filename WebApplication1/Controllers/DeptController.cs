@@ -9,8 +9,11 @@ namespace WebApplication1.Controllers
 {
     public class DeptController : Controller
     {
-        TantaMVCContext db = new TantaMVCContext();
-
+        TantaMVCContext db;
+        public DeptController(TantaMVCContext _db)
+        {
+            db = _db;
+        }
         //public IActionResult getAll()
         //{
         //    var dept = db.Departments.Include(s => s.Students).Include(i => i.Instructors);

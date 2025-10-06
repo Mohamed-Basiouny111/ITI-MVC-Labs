@@ -5,6 +5,10 @@ namespace WebApplication1.Context
 {
     public class TantaMVCContext : DbContext
     {
+        public TantaMVCContext(DbContextOptions op) : base(op)
+        {
+
+        }
         public DbSet<Student> Students { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Instructor> Instructors { get; set; }

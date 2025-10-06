@@ -1,5 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Context;
 using WebApplication1.Filters;
+using WebApplication1.GenericRepo;
+using WebApplication1.IGenericRepo;
+using WebApplication1.IRepo;
 using WebApplication1.Middlewares;
+using WebApplication1.Repositry;
 
 namespace WebApplication1
 {
@@ -24,9 +30,21 @@ namespace WebApplication1
             builder.Services.AddResponseCaching();
 
             //HandelExceptionFiterAttribute global
-            builder.Services.AddControllersWithViews(options =>
+            //builder.Services.AddControllersWithViews(options =>
+            //{
+            //    options.Filters.Add<HandelExceptionFiterAttribute>();
+            //});
+
+            //Register Our Own Service
+            //builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+
+            builder.Services.AddScoped<GenericStudentRepo>();
+            builder.Services.AddScoped<GenericDepartment>();
+
+            //DBContext
+            builder.Services.AddDbContext<TantaMVCContext>(op =>
             {
-                options.Filters.Add<HandelExceptionFiterAttribute>();
+                op.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
             });
 
 
@@ -45,7 +63,7 @@ namespace WebApplication1
 
             app.UseAuthorization();
 
-            app.UseLoggingMiddlewareCustom();
+           // app.UseLoggingMiddlewareCustom();
 
             app.MapStaticAssets();
             app.MapControllerRoute(

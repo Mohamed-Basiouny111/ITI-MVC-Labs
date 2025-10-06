@@ -6,9 +6,15 @@ namespace WebApplication1.Validators
 {
     public class UniqueAttribute : ValidationAttribute
     {
+        TantaMVCContext db;
+        public UniqueAttribute(TantaMVCContext _db)
+        {
+            db = _db;
+        }
+
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var db = new TantaMVCContext();
+            
             var name = value as string;
             var courseObj = validationContext.ObjectInstance as Course;
 

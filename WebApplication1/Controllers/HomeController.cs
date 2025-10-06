@@ -9,11 +9,12 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        TantaMVCContext db = new TantaMVCContext();
-        public HomeController(ILogger<HomeController> logger)
+        TantaMVCContext db;
+        public HomeController(ILogger<HomeController> logger, TantaMVCContext _db)
         {
             //db.Database.EnsureDeleted();
             _logger = logger;
+            db = _db;
         }
 
         public IActionResult Index()

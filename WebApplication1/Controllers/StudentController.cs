@@ -4,6 +4,8 @@ using WebApplication1.Context;
 using WebApplication1.Filters;
 using WebApplication1.Middlewares;
 using WebApplication1.Models;
+using WebApplication1.Repositry;
+using WebApplication1.IRepo;
 
 namespace WebApplication1.Controllers
 {
@@ -12,32 +14,49 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
 
-        TantaMVCContext db = new TantaMVCContext();
+        //TantaMVCContext db = new TantaMVCContext();
 
-        [CheckUserFilter]
+        //StudentRepo _studentRepo;
+        //IStudentRepo _studentRepo;
+        //public StudentController(IStudentRepo studentRepo)//Inject => Add
+        //{
+        //    //_studentRepo = new StudentRepo();
+        //    _studentRepo = studentRepo;
+        //}
+
+        private readonly GenericStudentRepo _studentRepo;
+        private readonly GenericDepartment _deptRepo;
+        public StudentController(GenericStudentRepo studentRepo, GenericDepartment deptRepo)
+        {
+            _studentRepo = studentRepo;
+            _deptRepo = deptRepo;
+        }
+
+        //[CheckUserFilter]
         public IActionResult Index()
         {
-            var result = db.Students.Include(d => d.Department).Include(c => c.CourseStudents).ThenInclude(cs => cs.Course).ToList();
+            var result = _studentRepo.GetStudent();
 
             return View("Index", result);
         }
 
         public IActionResult getone(int ssn)
         {
-            var result = db.Students.Where(s => s.SSN == ssn).ToList();
+            var result = _studentRepo.GetById(ssn);
             return View("getAll", result);
         }
        
         public IActionResult getAll()
         {
-            var result = db.Students.Include(d=>d.Department).ToList();
+            var result = _studentRepo.GetStudent();
             return View("getAll", result);
         }
 
-        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
+      //  [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public IActionResult Add()
         {
-            ViewBag.dept = db.Departments.ToList();
+            //ViewBag.dept = db.Departments.ToList();
+            ViewBag.dept = _deptRepo.GetAll();
             return View();
         }
 
@@ -55,8 +74,10 @@ namespace WebApplication1.Controllers
 
             if (s.Name != null)
             {
-                db.Students.Add(s);
-                db.SaveChanges();
+                //db.Students.Add(s);
+                //db.SaveChanges();
+
+                _studentRepo.Add(s);
 
                 //Session
                 HttpContext.Session.SetString("LastStudentName", s.Name);
@@ -78,8 +99,9 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var result = db.Students.FirstOrDefault(s => s.SSN == id);
-            ViewBag.dept = db.Departments.ToList();
+            var result = _studentRepo.GetById(id);
+            // ViewBag.dept = db.Departments.ToList();
+            ViewBag.dept = _deptRepo.GetAll();
             return View(result);
         }
 
@@ -88,22 +110,25 @@ namespace WebApplication1.Controllers
         {
             if (student.Name != "")
             {
-                db.Students.Update(student);
-                db.SaveChanges();
+                //db.Students.Update(student);
+                //db.SaveChanges();
+                _studentRepo.Update(student);
                 return RedirectToAction(nameof(getAll));
             }
 
-            ViewBag.dept = db.Departments.ToList();
+            // ViewBag.dept = db.Departments.ToList();
+            ViewBag.dept = _deptRepo.GetAll();
             return View(student);
         }
        
         public IActionResult Delete(int id)
         {
-            var student = db.Students.FirstOrDefault(s => s.SSN == id);
-            if (student == null)
-                return NotFound();
-            db.Students.Remove(student);
-            db.SaveChanges();
+            //var student = db.Students.FirstOrDefault(s => s.SSN == id);
+            //if (student == null)
+            //    return NotFound();
+            //db.Students.Remove(student);
+            //db.SaveChanges();
+            _studentRepo.Delete(id);
             return RedirectToAction(nameof(getAll));
         }
     }

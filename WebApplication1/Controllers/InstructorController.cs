@@ -7,11 +7,15 @@ namespace WebApplication1.Controllers
 {
     public class InstructorController : Controller
     {
-        TantaMVCContext db = new TantaMVCContext();
+        TantaMVCContext db;
+        public InstructorController(TantaMVCContext _db)
+        {
+            db = _db;
+        }
 
         public IActionResult getAll()
         {
-            var result = db.Instructors.Include(x=>x.Department).ToList();
+            var result = db.Instructors.Include(x => x.Department).ToList();
             return View("getAll", result);
         }
 

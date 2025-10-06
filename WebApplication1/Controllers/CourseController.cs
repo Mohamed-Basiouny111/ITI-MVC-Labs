@@ -6,8 +6,11 @@ namespace WebApplication1.Controllers
 {
     public class CourseController : Controller
     {
-        TantaMVCContext db = new TantaMVCContext();
-
+        TantaMVCContext db;
+        public CourseController(TantaMVCContext _db)
+        {
+            db = _db;
+        }
         public IActionResult Index()
         {
             var result = db.Courses.ToList();

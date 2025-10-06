@@ -11,7 +11,7 @@ namespace WebApplication1.Models
         public int Num { get; set; }
         [Required(ErrorMessage = "Name Required")]
         [MaxLength(20, ErrorMessage = "Name Must be less than 20 Letters")]
-        [Unique]
+        //[Unique]
         public string Name { get; set; }
         [Required(ErrorMessage = "Topic Required")]
         [MaxLength(20, ErrorMessage = "Topic Must be less than 20 Letters")]
