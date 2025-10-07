@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Context;
 using WebApplication1.Filters;
@@ -5,6 +6,7 @@ using WebApplication1.GenericRepo;
 using WebApplication1.IGenericRepo;
 using WebApplication1.IRepo;
 using WebApplication1.Middlewares;
+using WebApplication1.Models;
 using WebApplication1.Repositry;
 
 namespace WebApplication1
@@ -21,7 +23,7 @@ namespace WebApplication1
             // Session
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); 
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -38,8 +40,18 @@ namespace WebApplication1
             //Register Our Own Service
             //builder.Services.AddScoped<IStudentRepo, StudentRepo>();
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
+            {
+                op.Password.RequiredLength = 4;
+                op.Password.RequireNonAlphanumeric = false;
+                op.Password.RequireUppercase = false;
+                op.Password.RequireLowercase = false;
+                op.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<TantaMVCContext>();
+
             builder.Services.AddScoped<GenericStudentRepo>();
             builder.Services.AddScoped<GenericDepartment>();
+
 
             //DBContext
             builder.Services.AddDbContext<TantaMVCContext>(op =>
@@ -60,10 +72,10 @@ namespace WebApplication1
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
-           // app.UseLoggingMiddlewareCustom();
+            // app.UseLoggingMiddlewareCustom();
 
             app.MapStaticAssets();
             app.MapControllerRoute(

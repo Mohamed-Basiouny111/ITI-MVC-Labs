@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
 namespace WebApplication1.Context
 {
-    public class TantaMVCContext : DbContext
+    public class TantaMVCContext : IdentityDbContext<ApplicationUser>
     {
         public TantaMVCContext(DbContextOptions op) : base(op)
         {

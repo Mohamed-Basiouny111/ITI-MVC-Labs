@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Context;
 using WebApplication1.Models;
 
@@ -11,6 +13,7 @@ namespace WebApplication1.Controllers
         {
             db = _db;
         }
+        [Authorize]
         public IActionResult Index()
         {
             var result = db.Courses.ToList();
