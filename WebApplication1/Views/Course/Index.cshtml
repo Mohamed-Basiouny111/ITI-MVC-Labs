@@ -1,7 +1,10 @@
 ﻿@model List<Course>
-<br />
-<a href="/Course/Add" class="btn btn-primary">New Course</a>
-<br />
+@if (User.IsInRole("Admin"))
+{
+    <br />
+    <a href="/Course/Add" class="btn btn-primary">New Course</a>
+    <br />
+}
 <br />
 <table class="table">
     <thead>

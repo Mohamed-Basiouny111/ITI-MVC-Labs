@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
             return View(result);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
             return View();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
@@ -38,6 +39,7 @@ namespace WebApplication1.Controllers
                 IdentityResult res = await userManager.CreateAsync(user, userVM.Password);
                 if (res.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "Admin");
                     //Create Cookie
                     await signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
@@ -67,7 +69,7 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-      
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserVM userVm)
         {
@@ -80,8 +82,12 @@ namespace WebApplication1.Controllers
                     bool found = await userManager.CheckPasswordAsync(user, userVm.Password);
                     if (found)
                     {
+                        List<Claim> claims = new List<Claim>();
+                        claims.Add(new Claim("Address", user?.Address));
+                        claims.Add(new Claim("Skill", "Perfect"));
+                        await signInManager.SignInWithClaimsAsync(user, userVm.RememberMe, claims);
                         //Create Cookie
-                       await signInManager.SignInAsync(user, userVm.RememberMe);
+                        // await signInManager.SignInAsync(user, userVm.RememberMe);
                         return RedirectToAction("Index", "Home");
                     }
                 }
